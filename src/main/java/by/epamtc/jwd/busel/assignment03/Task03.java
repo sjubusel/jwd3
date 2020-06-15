@@ -42,7 +42,7 @@ public class Task03 {
         return code;
     }
 
-    private static int[] findOpeningCode(int[] code, int firstPosition,
+    private static void findOpeningCode(int[] code, int firstPosition,
             int secondPosition, int firstCubeValue, int secondCubeValue,
             int positionDifference) {
         int sign = positionDifference % 3;
@@ -61,7 +61,6 @@ public class Task03 {
         fillMiddle(code, firstPosition, secondPosition, nextValueToAdd);
         fillLeft(code, firstPosition);
         fillRight(code, secondPosition);
-        return code;
     }
 
     private static void fillMiddle(int[] code, int firstPosition, int secondPosition, int nextValueToAdd) {
