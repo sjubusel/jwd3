@@ -1,10 +1,15 @@
 package by.epamtc.jwd.busel.assignment03;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Task04 {
-    private static int getPositiveIntegerFromConsole() {
-        Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
+
+    private static int receivePositiveIntegerFromConsole() {
         while (true) {
             if (scanner.hasNextInt()) {
                 int number = scanner.nextInt();
@@ -53,7 +58,8 @@ public class Task04 {
     }
 
     private static int findMostFrequentInt(int[] array) {
-        Arrays.sort(array);
+//        Arrays.sort(array);
+        quickSort(array, 0, array.length - 1);
         int lowestFrequentNumber = array[0];
         int counterLowestFrequent = 1;
         int currentCounter = 1;
@@ -72,16 +78,47 @@ public class Task04 {
         return lowestFrequentNumber;
     }
 
+    public static void quickSort(int[] array, int left, int right) {
+        if (left < right) {
+            int pivot = partition(array, left, right);
+
+            quickSort(array, left, pivot - 1);
+            quickSort(array, pivot + 1, right);
+        }
+    }
+
+    private static int partition(int[] array, int left, int right) {
+        int pivot = array[right];
+        int i = left - 1;
+        for (int j = left; j < right; j++) {
+            if (array[j] < pivot) {
+                i++;
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+        int temp = array[i + 1];
+        array[i + 1] = array[right];
+        array[right] = temp;
+
+        return i + 1;
+    }
+
     public static void main(String[] args) {
         System.out.println("Please, insert any positive integer, which will" +
                 " be \"N\"");
-        int n = getPositiveIntegerFromConsole();
+        int n = receivePositiveIntegerFromConsole();
         int[] array = createArrayWithRandomValues(n);
         int mostFrequentIntByArray = findMostFrequentInt(array);
         int checkingValue = findMostFrequentIntCheckingByMap(array);
+
         System.out.printf("Array:\n%s\n", Arrays.toString(array));
         System.out.printf("The most frequent element of the array: %d\n",
                 mostFrequentIntByArray);
         System.out.printf("Checking value by HashMap: %d\n", checkingValue);
+
+        scanner.close();
     }
 }

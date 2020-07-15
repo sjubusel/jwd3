@@ -5,8 +5,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Task05 {
-    private static int getPositiveIntegerFromConsole() {
-        Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
+
+    private static int receivePositiveIntegerFromConsole() {
         while (true) {
             if (scanner.hasNextInt()) {
                 int number = scanner.nextInt();
@@ -32,10 +33,13 @@ public class Task05 {
     }
 
     private static int computeFunction(int[] array) {
-        int max = 0x80000000;
-        int min = 0x7fffffff;
-        int lastElementToEncounter = array.length % 2 != 0 ? array.length
-                                                           : array.length - 1;
+        if (array.length == 2) {
+            return array[0] + array[1];
+        }
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        int lastElementToEncounter = (array.length % 2) != 0 ? array.length
+                                                             : array.length - 1;
         for (int i = 0; i < lastElementToEncounter; i++) {
             if (i % 2 == 0) {
                 if (array[i] < min) {
@@ -53,12 +57,13 @@ public class Task05 {
     public static void main(String[] args) {
         System.out.println("Please, insert any positive integer, which will" +
                 " be \"N\"");
-        int n = getPositiveIntegerFromConsole();
+        int n = receivePositiveIntegerFromConsole();
         int[] array = createArrayWithRandomValues(n);
         int functionResult = computeFunction(array);
         System.out.printf("The result of the function\n" +
                 "\"max(A2, A4, ..., A2k)\" + \"min(A1, A3, ..., A2k+1)\"\n" +
                 "applied to the array %s\n" +
                 "is %d.\n", Arrays.toString(array), functionResult);
+        scanner.close();
     }
 }

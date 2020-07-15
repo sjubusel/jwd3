@@ -6,11 +6,11 @@ import java.util.Random;
 public class Task03 {
     private static Random random = new Random(System.nanoTime());
 
-    private static int getCubePosition() {
+    private static int receiveCubePosition() {
         return random.nextInt(10);
     }
 
-    private static int getCubePositionWhichIsNot(int firstCubePosition) {
+    private static int receiveCubePositionWhichIsNot(int firstCubePosition) {
         int secondCubePosition;
         do {
             secondCubePosition = random.nextInt(10);
@@ -18,23 +18,23 @@ public class Task03 {
         return secondCubePosition;
     }
 
-    private static int getRandomCubeValue() {
+    private static int receiveRandomCubeValue() {
         return random.nextInt(6) + 1;
     }
 
-    private static int getRandomCubeValueWhichCorrelatesTo(int firstCubeValue,
+    private static int receiveRandomCubeValueWhichCorrelatesTo(int firstCubeValue,
             int positionDifference) {
         if (positionDifference % 3 == 0) {
             return firstCubeValue;
         }
         int secondCubeValue;
         do {
-            secondCubeValue = getRandomCubeValue();
+            secondCubeValue = receiveRandomCubeValue();
         } while (firstCubeValue + secondCubeValue >= 10);
         return secondCubeValue;
     }
 
-    private static int[] getInitialCode(int firstCubePosition,
+    private static int[] receiveInitialCode(int firstCubePosition,
             int secondCubePosition, int firstCubeValue, int secondCubeValue) {
         int[] code = new int[10];
         code[firstCubePosition] = firstCubeValue;
@@ -90,8 +90,8 @@ public class Task03 {
     }
 
     public static void main(String[] args) {
-        int firstCubePosition = getCubePosition();
-        int secondCubePosition = getCubePositionWhichIsNot(firstCubePosition);
+        int firstCubePosition = receiveCubePosition();
+        int secondCubePosition = receiveCubePositionWhichIsNot(firstCubePosition);
         if (secondCubePosition < firstCubePosition) {
             int temp = secondCubePosition;
             secondCubePosition = firstCubePosition;
@@ -99,11 +99,11 @@ public class Task03 {
         }
         int positionDifference = secondCubePosition - firstCubePosition;
 
-        int firstCubeValue = getRandomCubeValue();
-        int secondCubeValue = getRandomCubeValueWhichCorrelatesTo
+        int firstCubeValue = receiveRandomCubeValue();
+        int secondCubeValue = receiveRandomCubeValueWhichCorrelatesTo
                 (firstCubeValue, positionDifference);
 
-        int[] code = getInitialCode(firstCubePosition, secondCubePosition,
+        int[] code = receiveInitialCode(firstCubePosition, secondCubePosition,
                 firstCubeValue, secondCubeValue);
         System.out.printf("Initial \"openable\" code:\n%s\n",
                 Arrays.toString(code));

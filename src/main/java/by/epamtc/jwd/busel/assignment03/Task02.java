@@ -5,8 +5,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Task02 {
-    private static int getPositiveIntegerFromConsole() {
-        Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
+
+    private static int receivePositiveIntegerFromConsole() {
         while (true) {
             if (scanner.hasNextInt()) {
                 int number = scanner.nextInt();
@@ -31,8 +32,8 @@ public class Task02 {
         return array;
     }
 
-    private static int[] getNewArrayWithDeletedMinElement(int[] array) {
-        int min = 0x7fffffff;
+    private static int[] receiveNewArrayWithDeletedMinElement(int[] array) {
+        int min = Integer.MAX_VALUE;
         int counterOfMinValues = 1;
         for (int i = 0; i < array.length; i++) {
             if (array[i] < min) {
@@ -60,10 +61,11 @@ public class Task02 {
     public static void main(String[] args) {
         System.out.println("Please, insert any positive integer, which will" +
                 " be \"N\"");
-        int n = getPositiveIntegerFromConsole();
+        int n = receivePositiveIntegerFromConsole();
         int[] array = createArrayWithRandomValues(n);
-        int[] newArray = getNewArrayWithDeletedMinElement(array);
+        int[] newArray = receiveNewArrayWithDeletedMinElement(array);
         System.out.println(Arrays.toString(array));
         System.out.println(Arrays.toString(newArray));
+        scanner.close();
     }
 }
